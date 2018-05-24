@@ -1,0 +1,30 @@
+.headingPOC {
+  color: red;
+  text-align: center;
+  font-family: serif;
+}
+header {
+  background-color: black;
+  height: 70px;
+  padding: 5px;
+}
+.tableWrapper h4 {
+  font-family: cursive;
+  padding: 5px 25px;
+  color: darkred;
+}
+.addCountry {
+  margin: 0px 55px 55px 0px;
+}
+.list {
+  font-family: cursive;
+  color: darkred;
+  text-align: center;
+}
+.list h4 {
+  color: black;
+  font-weight: 600;
+}
+.list li {
+  list-style: none;
+}

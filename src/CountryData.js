@@ -2,6 +2,7 @@ import React from "react";
 import Component from "react";
 import Pagination from "./Pagination.js";
 import SelectedCountryList from "./SelectedCountryList.js";
+import "../public/country.css";
 
 let count = 0;
 let lists = [];
@@ -105,17 +106,17 @@ class CountryData extends React.Component {
 
     // console.log("data: " + JSON.stringify(this.state.countryData));
     return (
-      <div>
+      <div className="tableWrapper">
         {this.state.showList ? (
           <SelectedCountryList countries={lists} />
         ) : (
           <div>
-            <div style={{ color: "red" }}>
-              <section>
-                <b>CountryData Showing here</b>
-              </section>
+            <div className="headingPOC">
+              <header>
+                <h3>Consultadd POC</h3>
+              </header>
             </div>
-            <h5> List of the Countries with Threat Level:</h5>
+            <h4> List of the Countries with Threat Level:</h4>
             <table className="table table-hover table-striped table-bordered">
               <thead>
                 <tr>
@@ -136,7 +137,7 @@ class CountryData extends React.Component {
               {iterator}
             </table>
             <Pagination items={data} onChangePage={this.onChangePage} />
-            <div>
+            <div className="addCountry">
               <input
                 type="button"
                 className="btn btn-success"
