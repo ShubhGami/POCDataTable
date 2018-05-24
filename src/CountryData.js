@@ -1,7 +1,10 @@
 import React from "react";
 import Component from "react";
 import Pagination from "./Pagination.js";
+import SelectedCountryList from "./SelectedCountryList.js";
 
+let count = 0;
+let lists = [];
 class CountryData extends React.Component {
   constructor(Props) {
     super(Props);
@@ -9,10 +12,13 @@ class CountryData extends React.Component {
       countryData: [],
       pageOfItems: [],
       id: "",
-      checked: false
+      checked: false,
+      isDisabled: false,
+      showList: false
     };
     this.onChangePage = this.onChangePage.bind(this);
     this.getThreatLevel = this.getThreatLevel.bind(this);
+    this.showList = this.showList.bind(this);
     // this.handelCheckboxState = this.handelCheckboxState.bind(this);
   }
   componentWillMount() {
@@ -47,8 +53,23 @@ class CountryData extends React.Component {
   //   console.log(x.rowIndex);
   // }
   getThreatLevel(e) {
-    if (e.target.value === 3 || e.target.value === 4) alert("Hi Alert");
+    console.log(e.target.value);
+    if (e.target.value === "3" || e.target.value === "4") {
+      alert("Hi Alert");
+      this.setState({ isDisabled: true, id: e.target.id });
+    } else {
+      count++;
+      if (count === 2) {
+        this.setState({ isDisabled: true });
+      }
+    }
+    lists.push(e.target.name);
+
     console.log("Data:", e.target.id);
+  }
+  showList() {
+    console.log(lists);
+    this.setState({ showList: true });
   }
   render() {
     const data = this.state.countryData;
@@ -70,6 +91,7 @@ class CountryData extends React.Component {
           <td>{item.threatLevel}</td>
           <td>
             <input
+              name={item.name}
               id={item.id}
               disabled={this.state.isDisabled}
               type="checkbox"
@@ -84,40 +106,47 @@ class CountryData extends React.Component {
     // console.log("data: " + JSON.stringify(this.state.countryData));
     return (
       <div>
-        <div style={{ color: "red" }}>
-          <section>
-            <b>CountryData Showing here</b>
-          </section>
-        </div>
-        <h5> List of the Countries with Threat Level:</h5>
-        <table className="table table-hover table-striped table-bordered">
-          <thead>
-            <tr>
-              <th>
-                <b>ID</b>
-              </th>
-              <th>
-                <b>Country Name</b>
-              </th>
-              <th>
-                <b>Threat Level</b>
-              </th>
-              <th>
-                <b>Select</b>
-              </th>
-            </tr>
-          </thead>
-          {iterator}
-        </table>
-        <Pagination items={data} onChangePage={this.onChangePage} />
-        <div>
-          <input
-            type="button"
-            className="btn btn-success"
-            value="ADD Countries"
-            style={{ float: "right", paddingLeft: "30px" }}
-          />
-        </div>
+        {this.state.showList ? (
+          <SelectedCountryList countries={lists} />
+        ) : (
+          <div>
+            <div style={{ color: "red" }}>
+              <section>
+                <b>CountryData Showing here</b>
+              </section>
+            </div>
+            <h5> List of the Countries with Threat Level:</h5>
+            <table className="table table-hover table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>
+                    <b>ID</b>
+                  </th>
+                  <th>
+                    <b>Country Name</b>
+                  </th>
+                  <th>
+                    <b>Threat Level</b>
+                  </th>
+                  <th>
+                    <b>Select</b>
+                  </th>
+                </tr>
+              </thead>
+              {iterator}
+            </table>
+            <Pagination items={data} onChangePage={this.onChangePage} />
+            <div>
+              <input
+                type="button"
+                className="btn btn-success"
+                value="ADD Countries"
+                style={{ float: "right", paddingLeft: "30px" }}
+                onClick={this.showList}
+              />
+            </div>
+          </div>
+        )}
       </div>
     );
   }
