@@ -1,2 +1,0 @@
-# POCDataTable
-Created with CodeSandbox
