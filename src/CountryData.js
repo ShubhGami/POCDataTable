@@ -2,6 +2,7 @@ import React from "react";
 import Component from "react";
 import Pagination from "./Pagination.js";
 import SelectedCountryList from "./SelectedCountryList.js";
+import "../public/country.css";
 
 let count = 0;
 let lists = [];
@@ -23,10 +24,6 @@ class CountryData extends React.Component {
   }
   componentWillMount() {
     this.getCountryList();
-  }
-
-  componentDidMount() {
-    //this.getCountryList();
   }
 
   getCountryList() {
@@ -55,7 +52,7 @@ class CountryData extends React.Component {
   getThreatLevel(e) {
     console.log(e.target.value);
     if (e.target.value === "3" || e.target.value === "4") {
-      alert("Hi Alert");
+      alert("ALERT...!!!!! Here Threat Text :- " + e.target.accessKey);
       this.setState({ isDisabled: true, id: e.target.id });
     } else {
       count++;
@@ -89,6 +86,7 @@ class CountryData extends React.Component {
           <td>{item.id}</td>
           <td>{item.name}</td>
           <td>{item.threatLevel}</td>
+          <td>{item.threatText}</td>
           <td>
             <input
               name={item.name}
@@ -97,6 +95,7 @@ class CountryData extends React.Component {
               type="checkbox"
               value={item.threatLevel}
               onChange={this.getThreatLevel}
+              accessKey={item.threatText}
             />
           </td>
         </tr>
@@ -105,17 +104,17 @@ class CountryData extends React.Component {
 
     // console.log("data: " + JSON.stringify(this.state.countryData));
     return (
-      <div>
+      <div className="tableWrapper">
         {this.state.showList ? (
           <SelectedCountryList countries={lists} />
         ) : (
           <div>
-            <div style={{ color: "red" }}>
-              <section>
-                <b>CountryData Showing here</b>
-              </section>
+            <div className="headingPOC">
+              <header>
+                <h3>Consultadd POC</h3>
+              </header>
             </div>
-            <h5> List of the Countries with Threat Level:</h5>
+            <h4> List of the Countries with Threat Level:</h4>
             <table className="table table-hover table-striped table-bordered">
               <thead>
                 <tr>
@@ -129,6 +128,9 @@ class CountryData extends React.Component {
                     <b>Threat Level</b>
                   </th>
                   <th>
+                    <b>Threat Text</b>
+                  </th>
+                  <th>
                     <b>Select</b>
                   </th>
                 </tr>
@@ -136,7 +138,7 @@ class CountryData extends React.Component {
               {iterator}
             </table>
             <Pagination items={data} onChangePage={this.onChangePage} />
-            <div>
+            <div className="addCountry">
               <input
                 type="button"
                 className="btn btn-success"

@@ -3,6 +3,7 @@ import Pagination from "./Pagination.js";
 import render from "react-dom";
 import ReactDOM from "react-dom";
 import CountryData from "./CountryData.js";
+import "../public/country.css";
 
 class App extends React.Component {
   constructor() {
