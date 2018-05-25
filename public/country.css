@@ -28,3 +28,11 @@ header {
 .list li {
   list-style: none;
 }
+
+.paginationWrapper {
+  text-align: center;
+}
+.pagination > li {
+  margin-left: -7em;
+}
+

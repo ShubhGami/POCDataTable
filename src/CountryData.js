@@ -26,10 +26,6 @@ class CountryData extends React.Component {
     this.getCountryList();
   }
 
-  componentDidMount() {
-    //this.getCountryList();
-  }
-
   getCountryList() {
     fetch("https://web-travel-test.cc.uic.edu/countries")
       .then(resultObject => resultObject.json())
@@ -56,7 +52,7 @@ class CountryData extends React.Component {
   getThreatLevel(e) {
     console.log(e.target.value);
     if (e.target.value === "3" || e.target.value === "4") {
-      alert("Hi Alert");
+      alert("ALERT...!!!!! Here Threat Text :- " + e.target.accessKey);
       this.setState({ isDisabled: true, id: e.target.id });
     } else {
       count++;
@@ -90,6 +86,7 @@ class CountryData extends React.Component {
           <td>{item.id}</td>
           <td>{item.name}</td>
           <td>{item.threatLevel}</td>
+          <td>{item.threatText}</td>
           <td>
             <input
               name={item.name}
@@ -98,6 +95,7 @@ class CountryData extends React.Component {
               type="checkbox"
               value={item.threatLevel}
               onChange={this.getThreatLevel}
+              accessKey={item.threatText}
             />
           </td>
         </tr>
@@ -128,6 +126,9 @@ class CountryData extends React.Component {
                   </th>
                   <th>
                     <b>Threat Level</b>
+                  </th>
+                  <th>
+                    <b>Threat Text</b>
                   </th>
                   <th>
                     <b>Select</b>
